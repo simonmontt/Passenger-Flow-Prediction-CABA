@@ -29,4 +29,4 @@ FEATURE_VIEW_MONITORING = 'predictions_vs_actuals_for_monitoring_feature_view'
 N_FEATURES = 24 * 14
 
 # maximum Mean Absolute Error we allow our production model to have
-MAX_MAE = 50.0
+#MAX_MAE = 50.0

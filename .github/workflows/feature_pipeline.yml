@@ -1,0 +1,41 @@
+name: hourly-subway-passenger-flow-feature-pipeline
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:
+
+jobs:
+  feature_pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Miniconda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        python-version: 3.9
+        activate-environment: myenv
+        environment-file: environment.yml
+
+    - name: Cache Conda packages
+      uses: actions/cache@v3
+      with:
+        path: ~/conda_pkgs_dir
+        key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
+
+    - name: Install dependencies
+      run: conda env update --file environment.yml --name myenv
+
+    # Step to install Jupyter and nbconvert if it's not in environment.yml
+    - name: Install Jupyter
+      run: conda install jupyter nbconvert
+
+    - name: Run Feature Loading Notebook
+      env: 
+        HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
+        HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+      run: |
+        conda run -n my-env jupyter nbconvert --to notebook --execute notebooks/feature_pipeline.ipynb
