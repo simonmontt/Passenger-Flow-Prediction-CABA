@@ -34,8 +34,8 @@ jobs:
       run: conda env update --file environment.yml --name myenv
 
     # Step to install Jupyter and nbconvert if it's not in environment.yml
-    - name: Install Jupyter
-      run: conda install jupyter nbconvert
+    #- name: Install Jupyter
+    #  run: conda install jupyter nbconvert
 
     - name: Run Inference Pipeline Notebook
       env: 
