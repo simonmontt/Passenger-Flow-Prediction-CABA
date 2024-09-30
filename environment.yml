@@ -391,5 +391,5 @@ dependencies:
       - validators==0.34.0
       - watchdog==5.0.2
       - wrapt==1.16.0
-    - wurlitzer==3.1.1
+      - wurlitzer==3.1.1
 prefix: C:\Users\PC\anaconda3\envs\myenv
