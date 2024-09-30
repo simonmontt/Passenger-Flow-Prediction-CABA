@@ -1,2 +1,2 @@
 comet_ml
-hopsworks=3.7.0
+hopsworks==3.7.0
