@@ -25,6 +25,8 @@ jobs:
       with:
         path: ~/conda_pkgs_dir
         key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
+        restore-keys: |
+          conda-${{ runner.os }}
 
     - name: Install dependencies
       run: |
