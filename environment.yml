@@ -17,4 +17,3 @@ dependencies:
   - pip
   - pip:
       - comet_ml
-      - hopsworks=3.7.0
