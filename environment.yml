@@ -4,7 +4,6 @@ channels:
 dependencies:
   - python=3.9
   - streamlit=1.28.0
-  - hopsworks=3.7.0
   - python-dotenv=1.0.0
   - jupyter=1.0.0
   - requests=2.31.0
@@ -18,3 +17,4 @@ dependencies:
   - pip
   - pip:
       - comet_ml
+      - hopsworks=3.7.0
