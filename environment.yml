@@ -13,6 +13,7 @@ dependencies:
   - xgboost=1.7.6
   - lightgbm=4.0.0
   - geopandas=0.14.0
+  - pyarrow
   - holidays
   - pip
   - pip:
