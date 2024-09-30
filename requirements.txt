@@ -178,8 +178,7 @@ python-dateutil==2.9.0
 python-dotenv==1.0.0
 python-json-logger==2.0.7
 pytz==2024.1
-pywin32
-pywin32-ctypes
+pywin32==306
 pywinpty==2.0.13
 PyYAML==6.0.2
 pyzmq==26.2.0
