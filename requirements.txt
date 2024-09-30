@@ -1,4 +1,4 @@
-comet_ml==3.46.0
+comet_ml
 hopsworks==3.7.0
 aiomysql==0.2.0
 altair==4.2.2
@@ -17,7 +17,6 @@ beautifulsoup4==4.12.3
 bleach==6.1.0
 blinker==1.8.2
 boto3==1.35.24
-botocore==1.35.24
 branca==0.7.2
 Brotli==1.1.0
 build==1.2.2
