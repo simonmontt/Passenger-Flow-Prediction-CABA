@@ -1,3 +1,4 @@
 comet_ml
+libarrow_flight.so.1700
 pyarrow
 hopsworks==3.7.0
