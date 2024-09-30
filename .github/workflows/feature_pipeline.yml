@@ -25,8 +25,11 @@ jobs:
       with:
         path: ~/conda_pkgs_dir
         key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
-        restore-keys: |
-          conda-${{ runner.os }}
+
+    - name: Initialize Conda
+      run: |
+        conda init bash  # Initialize Conda for bash shell
+        source ~/.bashrc  # Reload shell to apply changes
 
     - name: Install dependencies
       run: |
@@ -35,7 +38,7 @@ jobs:
     - name: Install additional dependencies with pip
       run: |
         conda activate myenv
-        pip install -r requirements.txt  # Ensure you have a requirements.txt for pip packages
+        pip install -r requirements.txt  # Install pip dependencies
 
     - name: Run Feature Loading Notebook
       env: 
