@@ -27,15 +27,12 @@ jobs:
         key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
 
     - name: Install dependencies
-      run: conda env update --file environment.yml --name myenv
-
-    # Step to install Jupyter and nbconvert if it's not in environment.yml
-    #- name: Install Jupyter
-    #  run: conda install jupyter nbconvert
+      run: |
+        conda env update --file environment.yml --name myenv || conda create --name myenv --file environment.yml
 
     - name: Run Feature Loading Notebook
       env: 
         HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
         HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
       run: |
-        conda run -n my-env jupyter nbconvert --to notebook --execute notebooks/feature_pipeline.ipynb
+        conda run -n myenv jupyter nbconvert --to notebook --execute notebooks/feature_pipeline.ipynb
