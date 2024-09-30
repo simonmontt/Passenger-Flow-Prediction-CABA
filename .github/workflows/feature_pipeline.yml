@@ -26,19 +26,10 @@ jobs:
         path: ~/conda_pkgs_dir
         key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
 
-    - name: Initialize Conda
-      run: |
-        conda init bash  # Initialize Conda for bash shell
-        source ~/.bashrc  # Reload shell to apply changes
-
-    - name: Install dependencies
-      run: |
-        conda env update --file environment.yml --name myenv || conda create --name myenv --file environment.yml
-
+    # Instead of conda activate, we use conda run for executing pip installation
     - name: Install additional dependencies with pip
       run: |
-        conda activate myenv
-        pip install -r requirements.txt  # Install pip dependencies
+        conda run -n myenv pip install -r requirements.txt  # Install pip dependencies in the conda environment
 
     - name: Run Feature Loading Notebook
       env: 
