@@ -36,4 +36,4 @@ jobs:
         HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
         HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
       run: |
-        conda run -n myenv jupyter nbconvert --to notebook --execute notebooks/feature_pipeline.ipynb
+        conda run -n myenv jupyter nbconvert --to notebook --execute feature_pipeline.ipynb
