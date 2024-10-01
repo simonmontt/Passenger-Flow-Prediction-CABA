@@ -48,15 +48,6 @@ jobs:
     - name: Install Dependencies
       run: poetry install
 
-    - name: Print working directory
-      run: pwd
-
-    - name: List directory structure
-      run: |
-        echo "Current Directory: $(pwd)"
-        echo "Directory Structure:"
-        ls -R  
-        
     - name: exceute python workflows from bash script
       env: 
         HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
