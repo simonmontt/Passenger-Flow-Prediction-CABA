@@ -59,9 +59,9 @@ jobs:
         
     - name: exceute python workflows from bash script
       env: 
-        HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }} #se agrega esto?
+        HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
         HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-      run: poetry run jupyter nbconvert --to notebook --execute notebooks/feature_pipeline.ipynb
+      run: poetry run jupyter nbconvert --to notebook --execute feature_pipeline.ipynb
 
 
         
