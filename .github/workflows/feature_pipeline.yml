@@ -48,7 +48,9 @@ jobs:
     - name: Install Dependencies
       run: poetry install
 
-      
+    - name: Print working directory
+      run: pwd
+        
     - name: exceute python workflows from bash script
       env: 
         HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }} #se agrega esto?
