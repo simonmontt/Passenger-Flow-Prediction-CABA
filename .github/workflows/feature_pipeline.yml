@@ -54,12 +54,6 @@ jobs:
         HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }} #se agrega esto?
         HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
       run: poetry run jupyter nbconvert --to notebook --execute notebooks/feature_pipeline.ipynb
-    
-    # - name: Run feature generation script
-    #   env: 
-    #     HOPSWORKS_API_KEY: $#{{ secrets.HOPSWORKS_API_KEY }}
-    #   run: make features
-  
 
 
         
