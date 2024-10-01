@@ -74,7 +74,7 @@ httpcore==1.0.5
 httpx==0.27.2
 hyperframe==6.0.1
 idna==3.10
-importlib_metadata==8.5.0
+importlib_metadata
 importlib_resources==6.4.5
 installer==0.7.0
 ipykernel==6.29.5
