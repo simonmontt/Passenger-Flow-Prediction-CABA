@@ -75,8 +75,9 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     pax_series = np.concatenate([total_pax_previous, total_pax_next])
 
     # Calculate PMAE between predicted and actual values from last year
-    actual_safe = np.where(historical_pax_next == 0, 1e-9, historical_pax_next)  # Avoid division by zero
-    pmae = np.mean(np.abs((total_pax_next - historical_pax_next) / actual_safe)) * 100
+    #actual_safe = np.where(historical_pax_next == 0, 1e-9, historical_pax_next)  # Avoid division by zero
+    #pmae = np.mean(np.abs((total_pax_next - historical_pax_next) / actual_safe)) * 100
+    mae = mean_absolute_error(historical_pax_next, total_pax_next)
     
     # Create Plotly graph
     fig = go.Figure()
@@ -85,7 +86,7 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     fig.add_trace(go.Scatter(x=time_series[24:], y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
 
     fig.update_layout(
-        title=f'Total Passenger Flow for Line {line}, Station {station} <br>PMAE: {pmae:.2f}%',
+        title=f'Total Passenger Flow for Line {line}, Station {station}/n <br>YoY Difference: {mae:.2f}',
         xaxis_title='Date and Time',
         yaxis_title='Total Passengers',
         template='plotly_dark',  # Adjust background color to fit the UI

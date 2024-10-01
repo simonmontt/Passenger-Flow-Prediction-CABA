@@ -1,47 +1,61 @@
-name: hourly-subway-passenger-flow-inference-pipeline
+name: hourly-bike-demand-inference-pipeline #inference-pipeline
 
 on:
   workflow_run:
-    workflows: ["hourly-subway-passenger-flow-feature-pipeline"]  
+    workflows: ["hourly-bike-demand-feature-pipeline"]  
     types:
       - completed
 
   workflow_dispatch:
 
+env:
+  PYTHON_VERSION: 3.9
+  POETRY_VERSION: 1.8.2
+  POETRY_URL: https://install.python-poetry.org
+
 jobs:
+
   inference_pipeline:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        python-version: 3.9
-        activate-environment: myenv
-        environment-file: environment.yml
+    # Poetry cache depends on OS, Python version and Poetry version.
+    - name: Cache Poetry cache
+      uses: actions/cache@v3
 
-    - name: Cache Conda packages
+      with:
+        path: ~/.cache/pypoetry
+        key: poetry-cache-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ env.POETRY_VERSION }}
+    
+    # virtualenv cache should depends on OS, Python version and `poetry.lock` (and optionally workflow files).
+    - name: Cache Packages
       uses: actions/cache@v3
       with:
-        path: ~/conda_pkgs_dir
-        key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
-
-    - name: Install dependencies
-      run: conda env update --file environment.yml --name myenv
-
-    # Step to install Jupyter and nbconvert if it's not in environment.yml
-    #- name: Install Jupyter
-    #  run: conda install jupyter nbconvert
-
-    - name: Run Inference Pipeline Notebook
+        path: ~/.local
+        key: poetry-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/*.yml') }}
+    
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install Poetry
+      run: |
+        curl -sSL ${{ env.POETRY_URL }} | python - --version ${{ env.POETRY_VERSION }}
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    
+    - name: Install Dependencies
+      run: poetry install
+   
+      
+    - name: exceute python workflows from bash script
       env: 
         HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
         COMET_ML_API_KEY: ${{ secrets.COMET_ML_API_KEY }}
         COMET_ML_WORKSPACE: ${{ secrets.COMET_ML_WORKSPACE }}
         COMET_ML_PROJECT_NAME: ${{ secrets.COMET_ML_PROJECT_NAME }}
-      run: |
-        conda run -n my-env jupyter nbconvert --to notebook --execute notebooks/inference_pipeline.ipynb
+      run: poetry run jupyter nbconvert --to notebook --execute notebooks/inference_pipeline.ipynb
+  
