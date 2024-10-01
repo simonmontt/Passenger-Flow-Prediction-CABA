@@ -132,7 +132,7 @@ numpy==1.26.4
 opensearch-py==2.4.2
 orderedmultidict==1.0.1
 overrides==7.7.0
-packaging==24.1
+packaging
 pandas==2.1.4
 pandocfilters==1.5.0
 parso==0.8.4
