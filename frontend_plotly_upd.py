@@ -117,7 +117,7 @@ features['station_encoded'] = station_label_encoder.fit_transform(features['stat
 predictions['line'] = line_label_encoder.inverse_transform(predictions['line'])
 predictions['station'] = station_label_encoder.inverse_transform(predictions['station'])
 
-print(predictions)
+print(predictions, predictions.shape)
 
 # Get unique lines for dropdowns
 unique_lines = sorted(features['line'].unique())
