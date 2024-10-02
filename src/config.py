@@ -9,7 +9,7 @@ load_dotenv(PARENT_DIR / '.env')
 
 #try:
 HOPSWORKS_PROJECT_NAME = 'mlops_rm'
-HOPSWORKS_API_KEY = os.environ['HOPSWORKS_API_KEY']
+#HOPSWORKS_API_KEY = os.environ['HOPSWORKS_API_KEY']
 #    HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
 #except:
 #    raise Exception('Create an .env file on the project root with the HOPSWORKS_API_KEY')
