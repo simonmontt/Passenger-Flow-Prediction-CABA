@@ -7,6 +7,8 @@ from sklearn.metrics import mean_absolute_error
 from datetime import datetime, timedelta
 from src.inferencesm import load_batch_of_features_from_store, load_predictions_from_store
 
+st.set_page_config(layout="wide")
+
 # Loading the image using Streamlit's st.image
 st.image("Logos.png", width=200, use_column_width=False)
 
