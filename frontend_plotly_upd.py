@@ -38,6 +38,7 @@ def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
     current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
     previous_year_time = current_time - timedelta(days=366) + pd.Timedelta(hours=3)
     historical_data = load_batch_of_features_from_store(previous_year_time)  # Replace with actual historical data loading function
+    print(historical_data)
     return historical_data[(historical_data['station'] == station) & (historical_data['line'] == line)]
 
 # Function to plot total passengers and compare with historical data
@@ -117,7 +118,7 @@ features['station_encoded'] = station_label_encoder.fit_transform(features['stat
 predictions['line'] = line_label_encoder.inverse_transform(predictions['line'])
 predictions['station'] = station_label_encoder.inverse_transform(predictions['station'])
 
-print(predictions, predictions.shape)
+
 
 # Get unique lines for dropdowns
 unique_lines = sorted(features['line'].unique())
