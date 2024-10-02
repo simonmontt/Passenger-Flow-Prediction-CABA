@@ -69,8 +69,9 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
     # Validate the presence of required data for all stations and lines
     station_line_ids = ts_data[['station', 'line']].drop_duplicates()
     expected_length = n_features * len(station_line_ids)
-    #if len(ts_data) != expected_length:
-    #    raise ValueError(f"Time-series data is incomplete. Expected {expected_length} rows, but got {len(ts_data)}. Please ensure the feature pipeline is running properly.")
+    ts_data.columns.to_series().to_csv('columns.txt', index=False, header=False)
+    if len(ts_data) != expected_length:
+        raise ValueError(f"Time-series data is incomplete. Expected {expected_length} rows, but got {len(ts_data)}. Please ensure the feature pipeline is running properly.")
 
     # Sort data by station, line, and time
     ts_data.sort_values(by=['station', 'line', 'hour_of_entry'], inplace=True)
