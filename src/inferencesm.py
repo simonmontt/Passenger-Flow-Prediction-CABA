@@ -56,8 +56,8 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
     )
 
     ts_data = feature_view.get_batch_data(
-        start_time=pd.to_datetime(fetch_data_from - timedelta(days=1), utc=True),
-        end_time=pd.to_datetime(fetch_data_to + timedelta(days=1), utc=True)
+        start_time=pd.to_datetime(fetch_data_from, utc=True),
+        end_time=pd.to_datetime(fetch_data_to, utc=True)
     )
 
     # Convert 'hour_of_entry' to UTC-aware datetime
