@@ -46,8 +46,8 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
     feature_store = get_feature_store()
 
     # Define the period to fetch data for the model
-    fetch_data_to = pd.to_datetime(current_date - timedelta(hours=0), utc=True)
-    fetch_data_from = pd.to_datetime(current_date - timedelta(days=14), utc=True)
+    fetch_data_to = pd.to_datetime(current_date - timedelta(hours=1), utc=True)
+    fetch_data_from = pd.to_datetime(current_date - timedelta(hours=(14*24)-2), utc=True)
     print(f'Fetching data from {fetch_data_from} to {fetch_data_to}')
 
     feature_view = feature_store.get_feature_view(
