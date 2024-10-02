@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import pytz
 import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error
@@ -20,7 +21,12 @@ with st.sidebar:
 # Function for loading batch of features with Streamlit caching
 @st.cache_data
 def cached_load_batch_of_features() -> pd.DataFrame:
-    current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
+    # Define Argentina's timezone (GMT-3)
+    argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+    # Get the current date and time in Argentina
+    current_time_in_argentina = datetime.now(argentina_tz).replace(minute=0, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')
+    # Round down (floor) to the nearest hour by setting minutes, seconds, and microseconds to 0
+    current_date = pd.to_datetime(current_time_in_argentina)
     return load_batch_of_features_from_store(current_time)
 
 # Function for loading predictions with Streamlit caching
