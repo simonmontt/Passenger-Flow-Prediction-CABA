@@ -51,7 +51,7 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
         return
 
     # Get historical data for the same date last year
-    last_year_data = load_historical_data(current_time.year - 1, station, line)
+    #last_year_data = load_historical_data(current_time.year - 1, station, line)
     
     if last_year_data.empty:
         st.error("No historical data available for comparison.")
@@ -65,7 +65,7 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     total_pax_next = filtered_predictions.filter(like='total_pax_next').iloc[0].values[:3]
     
     # Historical data for comparison (matching the predicted hours)
-    historical_pax_next = last_year_data.filter(like='total_pax_previous').iloc[0].values[-3:]
+    #historical_pax_next = last_year_data.filter(like='total_pax_previous').iloc[0].values[-3:]
 
     # Create time series for the last 24 hours and next 3 hours
     time_series_previous = pd.date_range(end=current_time, periods=24, freq='H')
@@ -78,16 +78,16 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     # Calculate PMAE between predicted and actual values from last year
     #actual_safe = np.where(historical_pax_next == 0, 1e-9, historical_pax_next)  # Avoid division by zero
     #pmae = np.mean(np.abs((total_pax_next - historical_pax_next) / actual_safe)) * 100
-    mae = mean_absolute_error(historical_pax_next, total_pax_next)
+    #mae = mean_absolute_error(historical_pax_next, total_pax_next)
     
     # Create Plotly graph
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=time_series[:24], y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'),  hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
     fig.add_trace(go.Scatter(x=time_series[24:], y=total_pax_next, mode='lines+markers', name='Predicted Total Pax (Next 3 hours)', line=dict(color='orange'), hovertemplate='Date: %{x}<br>Predicted Pax: %{y}<extra></extra>'))
-    fig.add_trace(go.Scatter(x=time_series[24:], y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
+    #fig.add_trace(go.Scatter(x=time_series[24:], y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
 
     fig.update_layout(
-        title=f'Total Passenger Flow for Line {line}, Station {station}/n <br>YoY Difference: {mae:.2f}',
+        title=f'Total Passenger Flow for Line {line}, Station {station}', #/n <br>YoY Difference: {mae:.2f}',
         xaxis_title='Date and Time',
         yaxis_title='Total Passengers',
         template='plotly_dark',  # Adjust background color to fit the UI
