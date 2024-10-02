@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error
 from datetime import datetime, timedelta
-HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
 from src.inferencesm import load_batch_of_features_from_store, load_predictions_from_store
 
 # Loading the image using Streamlit's st.image
