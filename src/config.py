@@ -16,10 +16,10 @@ HOPSWORKS_PROJECT_NAME = 'mlops_rm'
 
 
 # If not found in environment variables, use Streamlit secrets (for Streamlit Cloud)
-if not HOPSWORKS_API_KEY:
-    try:
+#if not HOPSWORKS_API_KEY:
+try:
         HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
-    except KeyError:
+except KeyError:
         raise Exception('HOPSWORKS_API_KEY not found in environment variables or Streamlit secrets.')
 
 FEATURE_GROUP_NAME = 'ts_stations_hourly_feature_group'
