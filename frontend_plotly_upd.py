@@ -53,9 +53,9 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     # Get historical data for the same date last year
     #last_year_data = load_historical_data(current_time.year - 1, station, line)
     
-    if last_year_data.empty:
-        st.error("No historical data available for comparison.")
-        return
+    #if last_year_data.empty:
+    #    st.error("No historical data available for comparison.")
+    #    return
     
     # Get the last 24 hours of passenger data
     total_pax_previous_cols = filtered_features.filter(like='total_pax_previous').columns[-24:]
