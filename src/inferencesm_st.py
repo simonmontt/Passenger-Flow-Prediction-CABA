@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import hsfs
 import src.config_st as config
-from src.feature_store_api import get_feature_store
+from src.feature_store_api_st import get_feature_store
 
 
 def get_hopsworks_project() -> hopsworks.project.Project:
