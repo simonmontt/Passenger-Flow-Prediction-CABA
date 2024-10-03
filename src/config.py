@@ -7,34 +7,11 @@ from src.paths import PARENT_DIR
 load_dotenv(PARENT_DIR / '.env')
 
 
-#try:
-#HOPSWORKS_PROJECT_NAME = 'mlops_rm'
-#HOPSWORKS_API_KEY = os.environ['HOPSWORKS_API_KEY']
-#    HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
-#except:
-#    raise Exception('Create an .env file on the project root with the HOPSWORKS_API_KEY')
-
-
-# If not found in environment variables, use Streamlit secrets (for Streamlit Cloud)
-#if not HOPSWORKS_API_KEY:
-#try:
-#        HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
-#        HOPSWORKS_API_KEY = os.environ['HOPSWORKS_API_KEY']
-#except KeyError:
-#        raise Exception('HOPSWORKS_API_KEY not found in environment variables or Streamlit secrets.')
-
 try:
-    # Try to load the API key from Streamlit secrets first
-    HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
-except KeyError:
-    # If it fails, fallback to environment variable (for GitHub Actions)
-    HOPSWORKS_API_KEY = os.environ.get('HOPSWORKS_API_KEY')
-
-# Raise an error if neither is found
-if not HOPSWORKS_API_KEY:
-    raise Exception('HOPSWORKS_API_KEY not found in st.secrets or environment variables')
-
-
+    HOPSWORKS_PROJECT_NAME = 'mlops_rm'
+    HOPSWORKS_API_KEY = os.environ['HOPSWORKS_API_KEY']
+except:
+    raise Exception('Create an .env file on the project root with the HOPSWORKS_API_KEY')
 
 FEATURE_GROUP_NAME = 'ts_stations_hourly_feature_group'
 FEATURE_GROUP_VERSION = 1
