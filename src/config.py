@@ -19,6 +19,7 @@ load_dotenv(PARENT_DIR / '.env')
 #if not HOPSWORKS_API_KEY:
 try:
         HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
+        HOPSWORKS_API_KEY = os.environ['HOPSWORKS_API_KEY']
 except KeyError:
         raise Exception('HOPSWORKS_API_KEY not found in environment variables or Streamlit secrets.')
 
