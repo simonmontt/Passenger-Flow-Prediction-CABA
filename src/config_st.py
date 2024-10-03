@@ -20,19 +20,6 @@ try:
 except KeyError:
     raise Exception('HOPSWORKS_API_KEY not found in environment Streamlit secrets.')
 
-try:
-    # Try to load the API key from Streamlit secrets first
-    HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
-except KeyError:
-    # If it fails, fallback to environment variable (for GitHub Actions)
-    HOPSWORKS_API_KEY = os.environ.get('HOPSWORKS_API_KEY')
-
-# Raise an error if neither is found
-if not HOPSWORKS_API_KEY:
-    raise Exception('HOPSWORKS_API_KEY not found in st.secrets or environment variables')
-
-
-
 FEATURE_GROUP_NAME = 'ts_stations_hourly_feature_group'
 FEATURE_GROUP_VERSION = 1
 FEATURE_VIEW_NAME = 'ts_stations_hourly_feature_view'
