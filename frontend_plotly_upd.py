@@ -30,7 +30,7 @@ def cached_load_batch_of_features() -> pd.DataFrame:
 def cached_load_predictions() -> pd.DataFrame:
     current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
     #from_hour_of_entry = current_time  
-    to_hour_of_entry = current_time -timedelta(hours=5)
+    to_hour_of_entry = current_time -timedelta(hours=6)
     return load_predictions_from_store(to_hour_of_entry)
 
 # Function for loading historical data for comparison (previous year's data)
