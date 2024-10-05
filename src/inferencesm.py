@@ -47,7 +47,7 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
 
     # Define the period to fetch data for the model
     fetch_data_to = pd.to_datetime(current_date - timedelta(hours=1), utc=True)
-    fetch_data_from = pd.to_datetime(current_date - timedelta(days=14) - timedelta(hours=3), utc=True)
+    fetch_data_from = pd.to_datetime((current_date - timedelta(days=14)) - timedelta(hours=3), utc=True)# - timedelta(hours=2)) )
     print(f'Fetching data from {fetch_data_from} to {fetch_data_to}')
 
     feature_view = feature_store.get_feature_view(
@@ -56,7 +56,7 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
     )
 
     ts_data = feature_view.get_batch_data(
-        start_time=pd.to_datetime(fetch_data_from - timedelta(days=1), utc=True),
+        start_time=pd.to_datetime(fetch_data_from, utc=True),
         end_time=pd.to_datetime(fetch_data_to + timedelta(days=1), utc=True)
     )
 
@@ -69,8 +69,9 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
     # Validate the presence of required data for all stations and lines
     station_line_ids = ts_data[['station', 'line']].drop_duplicates()
     expected_length = n_features * len(station_line_ids)
-    #if len(ts_data) != expected_length:
-    #    raise ValueError(f"Time-series data is incomplete. Expected {expected_length} rows, but got {len(ts_data)}. Please ensure the feature pipeline is running properly.")
+    print(station_line_ids.columns)
+    if len(ts_data) != expected_length:
+        raise ValueError(f"Time-series data is incomplete. Expected {expected_length} rows, but got {len(ts_data)}. Please ensure the feature pipeline is running properly.")
 
     # Sort data by station, line, and time
     ts_data.sort_values(by=['station', 'line', 'hour_of_entry'], inplace=True)
@@ -148,7 +149,8 @@ def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: 
 
     print(f'Fetching predictions between {from_hour_of_entry} and {to_hour_of_entry}')
     predictions = predictions_fv.get_batch_data(
-        start_time=from_hour_of_entry - timedelta(days=1),
+        start_time=from_hour_of_entry 
+        ,
         end_time=to_hour_of_entry + timedelta(days=1)
     )
 
