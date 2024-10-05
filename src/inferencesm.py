@@ -148,7 +148,7 @@ def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: 
 
     print(f'Fetching predictions between {from_hour_of_entry} and {to_hour_of_entry}')
     predictions = predictions_fv.get_batch_data(
-        start_time=from_hour_of_entry - timedelta(hours=1), 
+        start_time=from_hour_of_entry, 
         end_time=to_hour_of_entry 
     ) #+ timedelta(days=1)
 
