@@ -57,7 +57,7 @@ def load_batch_of_features_from_store(current_date: datetime) -> pd.DataFrame:
 
     ts_data = feature_view.get_batch_data(
         start_time=pd.to_datetime(fetch_data_from, utc=True),
-        end_time=pd.to_datetime(fetch_data_to, utc=True)
+        end_time=pd.to_datetime(fetch_data_to + timedelta(days=1), utc=True)
     )
 
     # Convert 'hour_of_entry' to UTC-aware datetime
@@ -149,18 +149,18 @@ def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: 
 
     print(f'Fetching predictions between {from_hour_of_entry} and {to_hour_of_entry}')
     predictions = predictions_fv.get_batch_data(
-        #start_time=from_hour_of_entry - timedelta(days=1),
-        #end_time=to_hour_of_entry + timedelta(days=1)
+        start_time=from_hour_of_entry - timedelta(days=1),
+        end_time=to_hour_of_entry + timedelta(days=1)
     )
 
     # Ensure datetimes are UTC-aware
     predictions['hour_of_entry'] = pd.to_datetime(predictions['hour_of_entry'], utc=True)
-    #from_hour_of_entry = pd.to_datetime(from_hour_of_entry, utc=True)
-    #to_hour_of_entry = pd.to_datetime(to_hour_of_entry, utc=True)
+    from_hour_of_entry = pd.to_datetime(from_hour_of_entry, utc=True)
+    to_hour_of_entry = pd.to_datetime(to_hour_of_entry, utc=True)
 
-    #predictions = predictions[predictions.hour_of_entry.between(
-    #    from_hour_of_entry, to_hour_of_entry
-    #)]
+    predictions = predictions[predictions.hour_of_entry.between(
+        from_hour_of_entry, to_hour_of_entry
+    )]
 
     # Sort predictions by 'hour_of_entry', 'station', and 'line'
     predictions.sort_values(by=['hour_of_entry', 'station', 'line'], inplace=True)
