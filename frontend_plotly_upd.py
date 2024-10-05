@@ -14,7 +14,7 @@ st.set_page_config(layout="wide")
 st.image("Logos.png", width=200, use_column_width=False)
 
 # Title for the app
-st.title("Buenos Aires Subway passenger flow")
+st.title("Buenos Aires Subway Passenger Flow")
 
 # Sidebar - Progress and Loading Indicators
 with st.sidebar:
@@ -23,12 +23,11 @@ with st.sidebar:
 # Function for loading batch of features with Streamlit caching
 @st.cache_data
 def cached_load_batch_of_features() -> pd.DataFrame:
-            # Define Argentina's timezone (GMT-3)
+    # Define Argentina's timezone (GMT-3)
     argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
 
     # Get the current date and time in Argentina
     current_time_in_argentina = datetime.now(argentina_tz).replace(minute=0, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')
-    # Round down (floor) to the nearest hour by setting minutes, seconds, and microseconds to 0
     current_date = pd.to_datetime(current_time_in_argentina)
     return load_batch_of_features_from_store(current_date)
 
@@ -40,16 +39,15 @@ def cached_load_predictions() -> pd.DataFrame:
 
     # Get the current date and time in Argentina
     current_time_in_argentina = datetime.now(argentina_tz).replace(minute=0, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')
-    # Round down (floor) to the nearest hour by setting minutes, seconds, and microseconds to 0
     current_date = pd.to_datetime(current_time_in_argentina)
-    from_hour_of_entry = current_date 
+    from_hour_of_entry = current_date
     to_hour_of_entry = from_hour_of_entry + timedelta(hours=3)
     return load_predictions_from_store(from_hour_of_entry, to_hour_of_entry)
 
 # Function for loading historical data for comparison (previous year's data)
 @st.cache_data
 def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
-    # Load data from your historical data source (this is just an example)
+    # Load historical data from the previous year for the same station and line
     current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
     previous_year_time = current_time - timedelta(days=365) + timedelta(hours=4)
     historical_data = load_batch_of_features_from_store(previous_year_time)  # Replace with actual historical data loading function
@@ -57,6 +55,7 @@ def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
 
 # Function to plot total passengers and compare with historical data
 def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd.DataFrame, line: str, station: str, current_time: datetime):
+    # Filter features and predictions by line and station
     filtered_features = features_df[(features_df['line'] == line) & (features_df['station'] == station)]
     filtered_predictions = predictions_df[(predictions_df['line'] == line) & (predictions_df['station'] == station)]
 
@@ -71,7 +70,7 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
         st.error("No historical data available for comparison.")
         return
     
-    # Get the last 24 hours of passenger data
+    # Get the last 24 hours of passenger data from features
     total_pax_previous_cols = filtered_features.filter(like='total_pax_previous').columns[-24:]
     total_pax_previous = filtered_features[total_pax_previous_cols].iloc[0].values
     
@@ -89,19 +88,17 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     time_series = time_series_previous.append(time_series_next)
     pax_series = np.concatenate([total_pax_previous, total_pax_next])
 
-    # Calculate PMAE between predicted and actual values from last year
-    #actual_safe = np.where(historical_pax_next == 0, 1e-9, historical_pax_next)  # Avoid division by zero
-    #pmae = np.mean(np.abs((total_pax_next - historical_pax_next) / actual_safe)) * 100
+    # Calculate MAE between predicted and last year's values
     mae = mean_absolute_error(historical_pax_next, total_pax_next)
     
     # Create Plotly graph
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=time_series[:24] - timedelta(hours=3), y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'),  hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[:24] - timedelta(hours=3), y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'), hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
     fig.add_trace(go.Scatter(x=time_series[24:] - timedelta(hours=3), y=total_pax_next, mode='lines+markers', name='Predicted Total Pax (Next 3 hours)', line=dict(color='orange'), hovertemplate='Date: %{x}<br>Predicted Pax: %{y}<extra></extra>'))
     fig.add_trace(go.Scatter(x=time_series[24:] - timedelta(hours=3), y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
 
     fig.update_layout(
-        title=f'Total Passenger Flow for Line {line}, Station {station}/n <br>YoY Difference: {mae:.2f}',
+        title=f'Total Passenger Flow for Line {line}, Station {station}\n YoY MAE: {mae:.2f}',
         xaxis_title='Date and Time',
         yaxis_title='Total Passengers',
         template='plotly_dark',  # Adjust background color to fit the UI
@@ -132,19 +129,18 @@ features['station_encoded'] = station_label_encoder.fit_transform(features['stat
 predictions['line'] = line_label_encoder.inverse_transform(predictions['line'])
 predictions['station'] = station_label_encoder.inverse_transform(predictions['station'])
 
-
-
 # Get unique lines for dropdowns
 unique_lines = sorted(features['line'].unique())
 
 # Dropdown for selecting Line
-selected_line_encoded = st.selectbox("Select Line", unique_lines)
+selected_line = st.selectbox("Select Line", unique_lines)
 
 # Get stations corresponding to the selected line
-filtered_stations = features[features['line'] == selected_line_encoded]['station'].unique()
+filtered_stations = features[features['line'] == selected_line]['station'].unique()
 
 # Dropdown for selecting Station
-selected_station_encoded = st.selectbox("Select Station", filtered_stations)
+selected_station = st.selectbox("Select Station", filtered_stations)
 
+# Button to generate the plot
 if st.button("Generate Plot"):
-    plot_total_pax_with_comparison(features, predictions, selected_line_encoded, selected_station_encoded, datetime.now())
+    plot_total_pax_with_comparison(features, predictions, selected_line, selected_station, datetime.now())
