@@ -1,5 +1,4 @@
 import os
-import streamlit as st
 from dotenv import load_dotenv
 from src.paths import PARENT_DIR
 
@@ -30,18 +29,3 @@ N_FEATURES = 24 * 14
 
 # maximum Mean Absolute Error we allow our production model to have
 #MAX_MAE = 50.0
-
-
-import os
-import streamlit as st
-
-# Try to get the HOPSWORKS_API_KEY from environment variables (for GitHub Actions or local)
-HOPSWORKS_PROJECT_NAME = 'mlops_rm'
-HOPSWORKS_API_KEY = os.getenv('HOPSWORKS_API_KEY')
-
-# If not found in environment variables, use Streamlit secrets (for Streamlit Cloud)
-if not HOPSWORKS_API_KEY:
-    try:
-        HOPSWORKS_API_KEY = st.secrets["hopsworks"]["HOPSWORKS_API_KEY"]
-    except KeyError:
-        raise Exception('HOPSWORKS_API_KEY not found in environment variables or Streamlit secrets.')
