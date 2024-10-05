@@ -153,13 +153,13 @@ def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: 
     )
 
     # Ensure datetimes are UTC-aware
-    predictions['hour_of_entry'] = pd.to_datetime(predictions['hour_of_entry'], utc=True)
-    from_hour_of_entry = pd.to_datetime(from_hour_of_entry, utc=True)
-    to_hour_of_entry = pd.to_datetime(to_hour_of_entry, utc=True)
+    #predictions['hour_of_entry'] = pd.to_datetime(predictions['hour_of_entry'], utc=True)
+    #from_hour_of_entry = pd.to_datetime(from_hour_of_entry, utc=True)
+    #to_hour_of_entry = pd.to_datetime(to_hour_of_entry, utc=True)
 
-    predictions = predictions[predictions.hour_of_entry.between(
-        from_hour_of_entry, to_hour_of_entry
-    )]
+    #redictions = predictions[predictions.hour_of_entry.between(
+    #    from_hour_of_entry, to_hour_of_entry
+    #)]
 
     # Sort predictions by 'hour_of_entry', 'station', and 'line'
     predictions.sort_values(by=['hour_of_entry', 'station', 'line'], inplace=True)
