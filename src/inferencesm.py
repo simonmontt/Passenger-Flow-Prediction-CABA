@@ -150,7 +150,7 @@ def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: 
     predictions = predictions_fv.get_batch_data(
         start_time=from_hour_of_entry - timedelta(days=1), 
         end_time=to_hour_of_entry + timedelta(days=1) 
-    ) + timedelta(days=1)
+    ) #+ timedelta(days=1)
 
     # Ensure datetimes are UTC-aware
     predictions['hour_of_entry'] = pd.to_datetime(predictions['hour_of_entry'], utc=True)
