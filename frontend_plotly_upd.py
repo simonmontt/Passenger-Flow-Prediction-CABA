@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import pytz
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error
 from datetime import datetime, timedelta
@@ -22,15 +23,27 @@ with st.sidebar:
 # Function for loading batch of features with Streamlit caching
 @st.cache_data
 def cached_load_batch_of_features() -> pd.DataFrame:
-    current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
-    return load_batch_of_features_from_store(current_time)
+            # Define Argentina's timezone (GMT-3)
+    argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+
+    # Get the current date and time in Argentina
+    current_time_in_argentina = datetime.now(argentina_tz).replace(minute=0, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')
+    # Round down (floor) to the nearest hour by setting minutes, seconds, and microseconds to 0
+    current_date = pd.to_datetime(current_time_in_argentina)
+    return load_batch_of_features_from_store(current_date)
 
 # Function for loading predictions with Streamlit caching
 @st.cache_data
 def cached_load_predictions() -> pd.DataFrame:
-    current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
-    from_hour_of_entry = current_time  - timedelta(hours=3)
-    to_hour_of_entry = from_hour_of_entry - timedelta(hours=1)
+    # Define Argentina's timezone (GMT-3)
+    argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
+
+    # Get the current date and time in Argentina
+    current_time_in_argentina = datetime.now(argentina_tz).replace(minute=0, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')
+    # Round down (floor) to the nearest hour by setting minutes, seconds, and microseconds to 0
+    current_date = pd.to_datetime(current_time_in_argentina)
+    from_hour_of_entry = current_date 
+    to_hour_of_entry = from_hour_of_entry + timedelta(hours=3)
     return load_predictions_from_store(from_hour_of_entry, to_hour_of_entry)
 
 # Function for loading historical data for comparison (previous year's data)
