@@ -51,8 +51,6 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
         st.error("No feature data available for the selected line and station.")
         return
     
-    print
-    
     if filtered_predictions.empty:
         st.error("No predictions data available for the selected line and station.")
         return
