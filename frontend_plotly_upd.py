@@ -29,9 +29,9 @@ def cached_load_batch_of_features() -> pd.DataFrame:
 @st.cache_data
 def cached_load_predictions() -> pd.DataFrame:
     current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
-    from_hour_of_entry = current_time  
-    to_hour_of_entry = from_hour_of_entry - timedelta(hours=1)
-    return load_predictions_from_store(from_hour_of_entry, to_hour_of_entry)
+    #from_hour_of_entry = from_hour_of_entry - timedelta(hours=1) 
+    to_hour_of_entry = current_time - timedelta(hours=1)
+    return load_predictions_from_store(to_hour_of_entry)
 
 # Function for loading historical data for comparison (previous year's data)
 @st.cache_data
@@ -83,9 +83,9 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     
     # Create Plotly graph
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=time_series[:24] - timedelta(hours=3), y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'),  hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
-    fig.add_trace(go.Scatter(x=time_series[24:] - timedelta(hours=3), y=total_pax_next, mode='lines+markers', name='Predicted Total Pax (Next 3 hours)', line=dict(color='orange'), hovertemplate='Date: %{x}<br>Predicted Pax: %{y}<extra></extra>'))
-    fig.add_trace(go.Scatter(x=time_series[24:] - timedelta(hours=3), y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[:24], y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'),  hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[24:], y=total_pax_next, mode='lines+markers', name='Predicted Total Pax (Next 3 hours)', line=dict(color='orange'), hovertemplate='Date: %{x}<br>Predicted Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[24:], y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
 
     fig.update_layout(
         title=f'Total Passenger Flow for Line {line}, Station {station}/n <br>YoY Difference: {mae:.2f}',

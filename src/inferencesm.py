@@ -113,7 +113,7 @@ def load_model_from_registry():
     
     return model
 
-def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: datetime) -> pd.DataFrame:
+def load_predictions_from_store(to_hour_of_entry: datetime) -> pd.DataFrame:
     """
     Fetches model predictions for all stations and lines for the time period
     between `from_hour_of_entry` and `to_hour_of_entry`.
@@ -147,10 +147,10 @@ def load_predictions_from_store(from_hour_of_entry: datetime, to_hour_of_entry: 
         version=1
     )
 
-    print(f'Fetching predictions between {from_hour_of_entry} and {to_hour_of_entry}')
+    print(f'Fetching predictions between {to_hour_of_entry} and {to_hour_of_entry + timedelta(hours=3)}')
     predictions = predictions_fv.get_batch_data(
-        start_time=from_hour_of_entry,
-        end_time= from_hour_of_entry
+        start_time=to_hour_of_entry,
+        end_time=to_hour_of_entry + timedelta(hours=1)
     )
 
     # Ensure datetimes are UTC-aware
