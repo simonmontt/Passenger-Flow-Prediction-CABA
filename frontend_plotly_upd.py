@@ -47,9 +47,14 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     filtered_features = features_df[(features_df['line'] == line) & (features_df['station'] == station)]
     filtered_predictions = predictions_df[(predictions_df['line'] == line) & (predictions_df['station'] == station)]
 
-    if filtered_features.empty or filtered_predictions.empty:
-        st.error("No data available for the selected line and station.")
+    if filtered_features.empty:
+        st.error("No feature data available for the selected line and station.")
         return
+    
+    if filtered_predictions.empty:
+        st.error("No predictions data available for the selected line and station.")
+        return
+
 
     # Get historical data for the same date last year
     last_year_data = load_historical_data(current_time.year - 1, station, line)
