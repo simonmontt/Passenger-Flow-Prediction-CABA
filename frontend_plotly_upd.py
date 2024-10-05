@@ -38,7 +38,7 @@ def cached_load_predictions() -> pd.DataFrame:
 def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
     # Load data from your historical data source (this is just an example)
     current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
-    previous_year_time = current_time - timedelta(hours=1)-  timedelta(days=366)
+    previous_year_time = current_time - timedelta(days=366)
     historical_data = load_batch_of_features_from_store(previous_year_time)  # Replace with actual historical data loading function
     return historical_data[(historical_data['station'] == station) & (historical_data['line'] == line)]
 
