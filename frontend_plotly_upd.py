@@ -51,6 +51,8 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
         st.error("No feature data available for the selected line and station.")
         return
     
+    print
+    
     if filtered_predictions.empty:
         st.error("No predictions data available for the selected line and station.")
         return
@@ -112,6 +114,7 @@ with st.sidebar:
         features = cached_load_batch_of_features()
     with st.spinner('Loading predictions...'):
         predictions = cached_load_predictions()
+        print(predictions)
 
     st.success('Data Loaded Successfully!')
 
