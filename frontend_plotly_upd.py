@@ -70,7 +70,7 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
 
     # Create time series for the last 24 hours and next 3 hours
     time_series_previous = pd.date_range(end=current_time, periods=24, freq='H')
-    time_series_next = pd.date_range(start=current_time + pd.Timedelta(hours=1), periods=3, freq='H')
+    time_series_next = pd.date_range(start=current_time + pd.Timedelta(hours=3), periods=3, freq='H')
     
     # Combine previous and next time series
     time_series = time_series_previous.append(time_series_next)
