@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error
 from datetime import datetime, timedelta
-from src.inferencesm_st import load_batch_of_features_from_store, load_predictions_from_store
+from src.inferencesm import load_batch_of_features_from_store, load_predictions_from_store
 
 st.set_page_config(layout="wide")
 
