@@ -45,6 +45,7 @@ def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
 # Function to plot total passengers and compare with historical data
 def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd.DataFrame, line: str, station: str, current_time: datetime):
     filtered_features = features_df[(features_df['line'] == line) & (features_df['station'] == station)]
+    print(predictions)
     filtered_predictions = predictions_df[(predictions_df['line'] == line) & (predictions_df['station'] == station)]
 
     if filtered_features.empty:
@@ -114,7 +115,6 @@ with st.sidebar:
         features = cached_load_batch_of_features()
     with st.spinner('Loading predictions...'):
         predictions = cached_load_predictions()
-        print(predictions)
 
     st.success('Data Loaded Successfully!')
 
