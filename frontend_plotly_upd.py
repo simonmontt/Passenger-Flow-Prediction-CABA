@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 # Function to check if an hour has passed and clear cache
 def check_and_clear_cache():
     if 'last_run_time' not in st.session_state:
-        st.session_state.last_run_time = datetime.now()
+        st.session_state.last_run_time = datetime.now().replace(minute=0, second=0, microsecond=0)
 
     current_time = datetime.now()
     time_diff = current_time - st.session_state.last_run_time
