@@ -4,7 +4,7 @@ Este proyecto tiene como objetivo predecir el flujo de pasajeros del subte de Bu
 
 ## Estructura del Proyecto
 
-El proyecto se organiza en cuatro notebooks como recomienda la empresa ### opsworks, cada una desempeñando un papel crucial en el flujo de trabajo:
+El proyecto se organiza en cuatro notebooks como recomienda la empresa ***Hopsworks***, cada una desempeñando un papel crucial en el flujo de trabajo:
 
 1. **Backfill.ipynb**: 
    - Realiza el procesamiento inicial de los datos, incluyendo la descarga desde la web oficial del Gobierno de la Ciudad de Buenos Aires.
