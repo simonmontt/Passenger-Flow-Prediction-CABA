@@ -20,7 +20,7 @@ def check_and_clear_cache():
     if time_diff >= timedelta(hours=1):
         st.cache_data.clear()  # Clear cached data
         st.session_state.last_run_time = current_time
-        st.experimental_rerun()  # Rerun the app
+        st.rerun()  # Rerun the app
 
 # Call the function to check if cache needs to be cleared
 check_and_clear_cache()
