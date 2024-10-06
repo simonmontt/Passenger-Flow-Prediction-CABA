@@ -1,4 +1,4 @@
-# Predictor de Flujo de Pasajeros del Subte de Buenos Aires
+# Predictor de Flujo de Pasajeros del Subte de Buenos Aires 🚇
 
 Este proyecto tiene como objetivo predecir el flujo de pasajeros del subte de Buenos Aires, proporcionando una solución para optimizar la frecuencia de los vagones y reducir la congestión en las horas pico. Al conocer de antemano la cantidad de pasajeros que utilizarán el servicio, se pueden tomar decisiones informadas para gestionar mejor los recursos y garantizar una experiencia de viaje más cómoda. Entre otras posibles ventajas puede ser:
 
@@ -6,7 +6,7 @@ Este proyecto tiene como objetivo predecir el flujo de pasajeros del subte de Bu
 - **Optimización de Recursos**: Ayuda a reducir costos operativos al evitar el envío de trenes vacíos o con poca demanda.
 - **Incremento en la Satisfacción del Cliente**: Al reducir la congestión, se mejora la experiencia del usuario, lo que puede llevar a un aumento en la utilización del servicio.
 
-## Estructura del Proyecto
+## 🗂️ Estructura del Proyecto
 
 El proyecto se organiza en cuatro notebooks como recomienda la empresa ***Hopsworks***, cada una desempeñando un papel crucial en el flujo de trabajo:
 
@@ -25,11 +25,14 @@ El proyecto se organiza en cuatro notebooks como recomienda la empresa ***Hopswo
    - Realiza predicciones sobre el flujo de pasajeros tomando en cuenta los datos desde el tiempo actual hasta 14 días atrás.
    - Las predicciones se suben nuevamente a la feature store para ser consumidas por un frontend desarrollado en Streamlit.
 
-## Implementación de MLOps
+## ⚙️ Implementación de MLOps
 
-Para garantizar las mejores prácticas en MLOps, se utilizan **GitHub Actions** para automatizar el proceso de ejecución de las notebooks de features y inference cada hora, manteniendo así los datos actualizados. 
+Para garantizar las mejores prácticas en MLOps, se utilizan **GitHub Actions** para automatizar el proceso de ejecución de las notebooks de features y inference cada hora, manteniendo así los datos actualizados.
 
 Además, el proyecto utiliza un entorno **Poetry** para gestionar las dependencias y ejecutar el código de manera eficiente.
 
+## 📊 Visualización
 
+La visualización de los datos y predicciones se realiza utilizando **Streamlit Community Cloud**, donde se ha implementado un código en Python que obtiene las características actuales, predichas e históricas de los datos. Este frontend permite interactuar con los datos de manera sencilla y visual.
 
+- Los datos actuales, desde mayo hasta la fecha, son simulados utilizando los datos del mismo período del año anterior, lo que permite evaluar el comportamiento del modelo con datos cercanos a la realidad actual.
