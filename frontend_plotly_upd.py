@@ -9,28 +9,28 @@ from src.inferencesm import load_batch_of_features_from_store, load_predictions_
 
 st.set_page_config(layout="wide")
 
-with st.sidebar:
-    st.write("### Made by Simón Montenegro")
-    
-    # Adding GitHub and LinkedIn links
-    st.markdown(
-        """
-        <style>
-        .icon {
-            display: flex;
-            align-items: center;
-        }
-        .icon img {
-            margin-right: 10px;
-        }
-        </style>
-        <div class="icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" width="20" />
-            <a href="https://www.linkedin.com/in/simonmontenegrode/" target="_blank">LinkedIn</a>
+# CSS for positioning the content in the upper right corner
+st.markdown(
+    """
+    <style>
+    .top-right {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 10px;
+    }
+    </style>
+    <div class="top-right">
+        <div style="display: flex; align-items: center;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" width="20" style="margin-left: 20px;"/>
+            <a href="https://www.linkedin.com/in/simonmontenegrode/" target="_blank" style="margin-left: 10px;">LinkedIn</a>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        <p style="margin-top: 10px;">Made by Simón Montenegro</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # Function to check if an hour has passed and clear cache
 def check_and_clear_cache():
