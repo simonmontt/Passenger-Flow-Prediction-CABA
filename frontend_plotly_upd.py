@@ -22,9 +22,6 @@ def check_and_clear_cache():
         st.session_state.last_run_time = current_time
         st.rerun()  # Rerun the app
 
-# Call the function to check if cache needs to be cleared
-check_and_clear_cache()
-
 # Loading the image using Streamlit's st.image
 st.image("Logos.png", width=200, use_column_width=False)
 
@@ -60,6 +57,8 @@ def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
 
 # Function to plot total passengers and compare with historical data
 def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd.DataFrame, line: str, station: str, current_time: datetime):
+    # Call the function to check if cache needs to be cleared
+    check_and_clear_cache()
     filtered_features = features_df[(features_df['line'] == line) & (features_df['station'] == station)]
     filtered_predictions = predictions_df[(predictions_df['line'] == line) & (predictions_df['station'] == station)]
 
