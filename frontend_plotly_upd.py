@@ -22,7 +22,7 @@ with st.sidebar:
 # Function for loading batch of features with Streamlit caching
 @st.cache_data
 def cached_load_batch_of_features() -> pd.DataFrame:
-    current_time = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(hours=3)
+    current_time = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(hours=2)
     return load_batch_of_features_from_store(current_time)
 
 # Function for loading predictions with Streamlit caching
