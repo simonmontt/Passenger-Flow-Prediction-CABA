@@ -88,9 +88,9 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     
     # Create Plotly graph
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=time_series[:24].floor('H') - timedelta(hours=3), y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'),  hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
-    fig.add_trace(go.Scatter(x=time_series[24:].floor('H') - timedelta(hours=3), y=total_pax_next, mode='lines+markers', name='Predicted Total Pax (Next 3 hours)', line=dict(color='orange'), hovertemplate='Date: %{x}<br>Predicted Pax: %{y}<extra></extra>'))
-    fig.add_trace(go.Scatter(x=time_series[24:].floor('H') - timedelta(hours=3).floor('H'), y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[:24].dt.floor('H') - timedelta(hours=3), y=total_pax_previous, mode='lines+markers', name='Actual Total Pax (Last 24 hours)', line=dict(color='blue'),  hovertemplate='Date: %{x}<br>Total Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[24:].dt.floor('H') - timedelta(hours=3), y=total_pax_next, mode='lines+markers', name='Predicted Total Pax (Next 3 hours)', line=dict(color='orange'), hovertemplate='Date: %{x}<br>Predicted Pax: %{y}<extra></extra>'))
+    fig.add_trace(go.Scatter(x=time_series[24:].dt.floor('H') - timedelta(hours=3), y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
 
     fig.update_layout(
         title=f'Total Passenger Flow for Line {line}, Station {station} <br>YoY Difference: {mae:.2f}',
