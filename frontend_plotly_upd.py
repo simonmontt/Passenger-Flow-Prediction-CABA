@@ -22,7 +22,7 @@ with st.sidebar:
 # Function for loading batch of features with Streamlit caching
 @st.cache_data
 def cached_load_batch_of_features() -> pd.DataFrame:
-    current_time = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(hours=5)
+    current_time = datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(hours=3)
     return load_batch_of_features_from_store(current_time)
 
 # Function for loading predictions with Streamlit caching
@@ -38,7 +38,7 @@ def cached_load_predictions() -> pd.DataFrame:
 def load_historical_data(year: int, station: str, line: str) -> pd.DataFrame:
     # Load data from your historical data source (this is just an example)
     current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
-    previous_year_time = current_time -  timedelta(days=366) - timedelta(hours=3)
+    previous_year_time = current_time -  timedelta(days=366) - timedelta(hours=1)
     historical_data = load_batch_of_features_from_store(previous_year_time)  # Replace with actual historical data loading function
     return historical_data[(historical_data['station'] == station) & (historical_data['line'] == line)]
 
