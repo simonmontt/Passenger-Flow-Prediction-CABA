@@ -1,6 +1,10 @@
 # Predictor de Flujo de Pasajeros del Subte de Buenos Aires
 
-Este proyecto tiene como objetivo predecir el flujo de pasajeros del subte de Buenos Aires, proporcionando una solución para optimizar la frecuencia de los vagones y reducir la congestión en las horas pico. Al conocer de antemano la cantidad de pasajeros que utilizarán el servicio, se pueden tomar decisiones informadas para gestionar mejor los recursos y garantizar una experiencia de viaje más cómoda.
+Este proyecto tiene como objetivo predecir el flujo de pasajeros del subte de Buenos Aires, proporcionando una solución para optimizar la frecuencia de los vagones y reducir la congestión en las horas pico. Al conocer de antemano la cantidad de pasajeros que utilizarán el servicio, se pueden tomar decisiones informadas para gestionar mejor los recursos y garantizar una experiencia de viaje más cómoda. Entre otras posibles ventajas puede ser:
+
+- **Mejora de la Planificación del Servicio**: Con las predicciones de pasajeros, se puede ajustar la programación de trenes para maximizar la eficiencia del servicio.
+- **Optimización de Recursos**: Ayuda a reducir costos operativos al evitar el envío de trenes vacíos o con poca demanda.
+- **Incremento en la Satisfacción del Cliente**: Al reducir la congestión, se mejora la experiencia del usuario, lo que puede llevar a un aumento en la utilización del servicio.
 
 ## Estructura del Proyecto
 
@@ -27,8 +31,5 @@ Para garantizar las mejores prácticas en MLOps, se utilizan **GitHub Actions** 
 
 Además, el proyecto utiliza un entorno **Poetry** para gestionar las dependencias y ejecutar el código de manera eficiente.
 
-## Beneficios Adicionales del Predictor
 
-- **Mejora de la Planificación del Servicio**: Con las predicciones de pasajeros, se puede ajustar la programación de trenes para maximizar la eficiencia del servicio.
-- **Optimización de Recursos**: Ayuda a reducir costos operativos al evitar el envío de trenes vacíos o con poca demanda.
-- **Incremento en la Satisfacción del Cliente**: Al reducir la congestión, se mejora la experiencia del usuario, lo que puede llevar a un aumento en la utilización del servicio.
+
