@@ -31,20 +31,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-# Function to check if an hour has passed and clear cache
-def check_and_clear_cache():
-    if 'last_run_time' not in st.session_state:
-        st.session_state.last_run_time = datetime.now().replace(minute=0, second=0, microsecond=0)
-
-    current_time = datetime.now()
-    time_diff = current_time - st.session_state.last_run_time
-
-    if time_diff >= timedelta(hours=1):
-        st.cache_data.clear()  # Clear cached data
-        st.session_state.last_run_time = current_time
-        st.rerun()  # Rerun the app
-
 # Loading the image using Streamlit's st.image
 st.image("Logos.png", width=200, use_column_width=False)
 
