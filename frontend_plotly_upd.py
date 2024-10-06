@@ -9,6 +9,29 @@ from src.inferencesm import load_batch_of_features_from_store, load_predictions_
 
 st.set_page_config(layout="wide")
 
+with st.sidebar:
+    st.write("### Made by Simón Montenegro")
+    
+    # Adding GitHub and LinkedIn links
+    st.markdown(
+        """
+        <style>
+        .icon {
+            display: flex;
+            align-items: center;
+        }
+        .icon img {
+            margin-right: 10px;
+        }
+        </style>
+        <div class="icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" width="20" />
+            <a href="https://www.linkedin.com/in/simonmontenegrode/" target="_blank">LinkedIn</a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 # Function to check if an hour has passed and clear cache
 def check_and_clear_cache():
     if 'last_run_time' not in st.session_state:
