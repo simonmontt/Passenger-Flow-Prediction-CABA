@@ -9,6 +9,22 @@ from src.inferencesm import load_batch_of_features_from_store, load_predictions_
 
 st.set_page_config(layout="wide")
 
+# Function to check if an hour has passed and clear cache
+def check_and_clear_cache():
+    if 'last_run_time' not in st.session_state:
+        st.session_state.last_run_time = datetime.now()
+
+    current_time = datetime.now()
+    time_diff = current_time - st.session_state.last_run_time
+
+    if time_diff >= timedelta(hours=1):
+        st.cache_data.clear()  # Clear cached data
+        st.session_state.last_run_time = current_time
+        st.experimental_rerun()  # Rerun the app
+
+# Call the function to check if cache needs to be cleared
+check_and_clear_cache()
+
 # Loading the image using Streamlit's st.image
 st.image("Logos.png", width=200, use_column_width=False)
 
