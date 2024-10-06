@@ -93,7 +93,7 @@ def plot_total_pax_with_comparison(features_df: pd.DataFrame, predictions_df: pd
     fig.add_trace(go.Scatter(x=time_series[24:] - timedelta(hours=3), y=historical_pax_next, mode='lines+markers', name='Actual Pax Last Year (Next 3 hours)', line=dict(color='green', dash='dash'), hovertemplate='Date: %{x}<br>Last Year Pax: %{y}<extra></extra>'))
 
     fig.update_layout(
-        title=f'Total Passenger Flow for Line {line}, Station {station}/n <br>YoY Difference: {mae:.2f}',
+        title=f'Total Passenger Flow for Line {line}, Station {station} <br>YoY Difference: {mae:.2f}',
         xaxis_title='Date and Time',
         yaxis_title='Total Passengers',
         template='plotly_dark',  # Adjust background color to fit the UI
